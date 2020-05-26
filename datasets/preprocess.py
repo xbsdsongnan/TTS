@@ -31,6 +31,22 @@ def get_preprocessor_by_name(name):
     return getattr(thismodule, name.lower())
 
 
+def lobe(root_path, meta_file):
+    """Normalize LOBE dataset, use info.json as meta_file
+    """
+    import json
+    info = json.load(open(os.path.join(root_path, meta_file)))
+    items = []
+    for rec_id, item in info.items():
+        speaker_id = item['collection_info']['user_id']
+        speaker_name = f"s_{speaker_id}"
+        recording_fname = item['recording_info']['recording_fname']
+        wav_file = os.path.join(root_path, 'audio', str(speaker_id), recording_fname)
+        text = item['text_info']['text']
+        items.append([text, wav_file, speaker_name])
+    return items
+
+
 def tweb(root_path, meta_file):
     """Normalize TWEB dataset.
     https://www.kaggle.com/bryanpark/the-world-english-bible-speech-dataset
