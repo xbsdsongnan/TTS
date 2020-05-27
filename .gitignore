@@ -128,3 +128,10 @@ tests/outputs/*
 TODO.txt
 .vscode/*
 data/*
+
+
+# Specific configuration files
+config_*
+
+# Sbatch
+sbatch/
